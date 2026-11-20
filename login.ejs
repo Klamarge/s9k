@@ -4,60 +4,77 @@
         font-family: Arial, sans-serif;
         background-color: #f4f4f4;
         color: #333;
-        max-width: 1000px;
-        margin: 30px auto;
-        padding: 0 20px;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center; 
+        min-height: 100vh;
+        box-sizing: border-box;
     }
 
     h1 {
         color: #333;
-        border-bottom: 2px solid #007bff;
+        border-bottom: 3px solid #007bff;
         display: inline-block;
         padding-bottom: 5px;
-        margin-bottom: 20px;
+        margin-top: 0;
+        margin-bottom: 10px;
+        text-align: center;
+        font-size: 28px;
     }
 
     h2 {
         color: #555;
-        font-size: 20px;
+        font-size: 22px;
         margin-bottom: 20px;
+        text-align: center;
     }
 
     form {
         background: white;
-        padding: 25px;
+        padding: 40px;
         border: 1px solid #ddd;
-        border-radius: 5px;
-        box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        max-width: 500px;
-        font-size: 15px;
+        border-radius: 8px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        width: 100%;
+        max-width: 700px;
+        font-size: 16px;
         color: #444;
+        box-sizing: border-box;
     }
 
     input[type="text"], input[type="password"] {
-        padding: 8px;
+        padding: 12px;
         border: 1px solid #ccc;
-        border-radius: 3px;
-        width: 250px;
-        max-width: 100%;
+        border-radius: 4px;
+        width: 100%;
+        max-width: 400px;
         font-family: Arial, sans-serif;
         box-sizing: border-box;
+        font-size: 16px;
+        margin-top: 5px;
     }
 
     input[type="text"]:focus, input[type="password"]:focus {
         border-color: #007bff;
         outline: none;
+        box-shadow: 0 0 5px rgba(0,123,255,0.3);
     }
-    /*"submit" button style*/
+
     input[type="submit"] {
         background-color: #007bff;
         color: white;
         border: none;
-        padding: 8px 20px;
-        border-radius: 3px;
+        padding: 12px 30px;
+        border-radius: 4px;
         cursor: pointer;
-        font-size: 15px;
-        margin-top: 10px;
+        font-size: 16px;
+        font-weight: bold;
+        margin-top: 15px;
+        width: 150px;
+        transition: 0.3s;
     }
 
     input[type="submit"]:hover {
@@ -66,15 +83,21 @@
 
     body > a {
         display: inline-block;
-        margin-top: 20px;
+        margin-top: 25px;
         color: #666;
         text-decoration: none;
-        font-size: 14px;
+        font-size: 15px;
+        text-align: center;
+        transition: 0.3s;
     }
 
     body > a:hover {
         text-decoration: underline;
-        color: #333;
+        color: #007bff;
+    }
+    
+    p {
+        margin-bottom: 15px;
     }
 </style>
 </head>
