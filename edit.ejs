@@ -1,0 +1,114 @@
+<html>
+    <head>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f4f4f4;
+                color: #333;
+                max-width: 1000px;
+                margin: 30px auto;
+                padding: 0 20px;
+            }
+
+            h1 {
+                color: #333;
+                border-bottom: 2px solid #007bff;
+                display: inline-block;
+                padding-bottom: 5px;
+                margin-bottom: 20px;
+            }
+
+            h2 {
+                color: #555;
+                font-size: 20px;
+                margin-bottom: 20px;
+            }
+
+            .edit-container {
+                background: white;
+                padding: 25px;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+                box-shadow: 0 0 10px rgba(0,0,0,0.1);
+                max-width: 600px;
+            }
+
+            form {
+                font-size: 15px;
+                color: #444;
+            }
+            input[type="text"], input[type="number"], select {
+                padding: 8px;
+                border: 1px solid #ccc;
+                border-radius: 3px;
+                width: 300px;
+                max-width: 100%;
+                font-family: Arial, sans-serif;
+                box-sizing: border-box;
+            }
+
+            input[type="text"]:focus, input[type="number"]:focus, select:focus {
+                border-color: #007bff;
+                outline: none;
+            }
+
+            /* button style */
+            input[type="submit"] {
+                background-color: #007bff;
+                color: white;
+                border: none;
+                padding: 8px 20px;
+                border-radius: 3px;
+                cursor: pointer;
+                font-size: 15px;
+                margin-top: 10px;
+            }
+
+            input[type="submit"]:hover {
+                background-color: #0056b3;
+            }
+
+            /*the cancel style*/
+            .btn-cancel {
+                display: inline-block;
+                margin-top: 20px;
+                color: #666;
+                text-decoration: none;
+                font-size: 14px;
+            }
+
+            .btn-cancel:hover {
+                text-decoration: underline;
+                color: #333;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Warehouse</h1>
+        <hr>
+        <h2>Edit Parcel Information</h2>
+
+        <form action="/update" method="POST">
+            <input type="hidden" name="id" value="<%= parcel._id %>">
+            
+            Item Type: 
+            <select name="itemType" required>
+                <option value="Food" <%= parcel.itemType === 'Food' ? 'selected' : '' %>>Food</option>
+                <option value="Daily necessities" <%= parcel.itemType === 'Daily necessities' ? 'selected' : '' %>>Daily necessities</option>
+                <option value="toys" <%= parcel.itemType === 'toys' ? 'selected' : '' %>>toys</option>
+                <option value="Electronic product" <%= parcel.itemType === 'Electronic product' ? 'selected' : '' %>>Electronic product</option>
+                <option value="Clothing" <%= parcel.itemType === 'Clothing' ? 'selected' : '' %>>Clothing</option>
+            </select><br><br>
+
+            Item Name: <input type="text" name="itemName" value="<%= parcel.itemName %>" required><br><br>
+            Sender Address: <input type="text" name="senderAddress" value="<%= parcel.senderAddress %>" required><br><br>
+            Receiver Address: <input type="text" name="receiverAddress" value="<%= parcel.receiverAddress %>" required><br><br>
+            Weight (kg): <input type="number" step="0.01" min="0.01" name="weight" value="<%= parcel.weight %>" required><br><br>
+            
+            <input type="submit" value="Update Parcel">
+        </form>
+
+        <br>
+        <a href="/parcels">Cancel and Return</a>
+    </body>
+</html>
