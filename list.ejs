@@ -132,18 +132,26 @@
         width: 90%;
         box-sizing: border-box;
     }
+    td:last-child {
+        white-space: nowrap; 
+        text-align: center;
+        min-width: 130px; 
+        font-size: 0; 
+    }
     td a {
         text-decoration: none;
-        padding: 5px 10px;
+        padding: 6px 10px;
         border-radius: 4px;
-        font-size: 0.9rem;
+        font-size: 0.85rem; 
         font-weight: bold;
         transition: 0.2s;
+        display: inline-block; 
+        vertical-align: middle;
     }
     td a[href^="/edit"] {
         background-color: #f1c40f;
         color: #333;
-        margin-right: 5px;
+        margin-right: 8px;
     }
     td a[href^="/edit"]:hover {
         background-color: #f39c12;
@@ -159,6 +167,8 @@
     table input[type="submit"] {
         background-color: #2ecc71;
         width: 100%;
+        max-width: 80px;
+        padding: 6px 10px;
     }
     table input[type="submit"]:hover {
         background-color: #27ae60;
