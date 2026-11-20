@@ -1,0 +1,264 @@
+
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f4f7f6; 
+        color: #333;
+        max-width: 1000px;
+        margin: 40px auto;
+        padding: 0 20px;
+        line-height: 1.6;
+    }
+
+    h1 {
+        color: #2c3e50;
+        border-bottom: 3px solid #3498db;
+        display: inline-block;
+        padding-bottom: 5px;
+        margin-bottom: 10px;
+    }
+
+    p {
+        font-size: 1.1rem;
+        color: #555;
+    }
+
+    p a {
+        color: #e74c3c;
+        text-decoration: none;
+        font-weight: bold;
+        padding: 5px 10px;
+        border: 1px solid #e74c3c;
+        border-radius: 4px;
+        transition: 0.3s;
+    }
+    p a:hover {
+        background-color: #e74c3c;
+        color: white;
+    }
+
+    hr {
+        border: 0;
+        height: 1px;
+        background: #ddd;
+        margin: 20px 0;
+    }
+
+    form[action="/parcels"] {
+        background: white;
+        padding: 15px 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    input[type="text"], input[type="number"], select {
+        padding: 8px 12px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        outline: none;
+        transition: border 0.3s;
+    }
+    input[type="text"]:focus, input[type="number"]:focus, select:focus {
+        border-color: #3498db;
+    }
+
+    input[type="submit"] {
+        background-color: #3498db;
+        color: white;
+        border: none;
+        padding: 8px 15px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: 0.3s;
+    }
+    input[type="submit"]:hover {
+        background-color: #2980b9;
+    }
+    
+    form[action="/parcels"] a {
+        color: #7f8c8d;
+        text-decoration: none;
+        font-size: 0.9rem;
+        margin-left: 5px;
+    }
+    form[action="/parcels"] a:hover {
+        color: #333;
+        text-decoration: underline;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse !important;
+        background: white;
+        border-radius: 8px; 
+        overflow: hidden; 
+        box-shadow: 0 4px 10px rgba(0,0,0,0.08); 
+        border: none !important; 
+    }
+
+    th {
+        background-color: #2c3e50;
+        color: white;
+        padding: 15px;
+        text-align: left;
+        font-weight: 600;
+    }
+
+    td {
+        padding: 12px 15px;
+        border-bottom: 1px solid #eee !important;
+        vertical-align: middle;
+    }
+
+    tr:hover {
+        background-color: #f8f9fa;
+    }
+
+    table tr:first-child + form tr, 
+    table tr:nth-child(2) {
+        background-color: #e8f4f8; 
+        border-bottom: 2px solid #3498db;
+    }
+    
+    table input[type="text"], 
+    table input[type="number"], 
+    table select {
+        width: 90%;
+        box-sizing: border-box;
+    }
+    td a {
+        text-decoration: none;
+        padding: 5px 10px;
+        border-radius: 4px;
+        font-size: 0.9rem;
+        font-weight: bold;
+        transition: 0.2s;
+    }
+    td a[href^="/edit"] {
+        background-color: #f1c40f;
+        color: #333;
+        margin-right: 5px;
+    }
+    td a[href^="/edit"]:hover {
+        background-color: #f39c12;
+    }
+    td a[href^="/delete"] {
+        background-color: #e74c3c;
+        color: white;
+    }
+    td a[href^="/delete"]:hover {
+        background-color: #c0392b;
+    }
+
+    table input[type="submit"] {
+        background-color: #2ecc71;
+        width: 100%;
+    }
+    table input[type="submit"]:hover {
+        background-color: #27ae60;
+    }
+</style>
+<html>
+    <body>
+        <h1>Warehouse</h1>
+        <p>Welcome, <b><%= user.username %></b> | <a href="/logout">Logout</a></p>
+        <hr>
+
+        <!-- Search Form-->
+        <form action="/parcels" method="GET">
+            Search Inventory (Item Type, Item Name, or Receiver Address): 
+            <input type="text" name="search" value="<%= search %>">
+            <input type="submit" value="Search">
+            <a href="/parcels">Reset</a>
+        </form>
+        <br>
+
+        <!-- Warehouse Table-->
+        <table border="1" cellpadding="8" cellspacing="0">
+            <tr>
+                <th>Item Type</th>
+                <th>Item Name</th>
+                <th>Sender Address</th>
+                <th>Receiver Address</th>
+                <th>Weight (kg)</th>
+                <th>Shipping Fee (HKD)</th>
+                <th>Action</th>
+            </tr>
+
+            <!-- Row 1: Input Form for Adding New Parcel -->
+            <form action="/create" method="POST">
+                <tr>
+                    <td>
+                        <select name="itemType" required>
+                            <option value="Food">Food</option>
+                            <option value="Daily necessities">Daily necessities</option>
+                            <option value="toys">toys</option>
+                            <option value="Electronic product">Electronic product</option>
+                            <option value="Clothing">Clothing</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="text" name="itemName" placeholder="Enter item name" required>
+                    </td>
+                    <td>
+                        <input type="text" name="senderAddress" placeholder="Sender address" required>
+                    </td>
+                    <td>
+                        <input type="text" name="receiverAddress" placeholder="Receiver address" required>
+                    </td>
+                    <td>
+                        <input type="number" id="weightInput" name="weight" step="0.01" min="0.01" placeholder="> 0" oninput="autoFillFee()" required>
+                    </td>
+                    <td>
+                        <input type="text" id="feeDisplay" value="$0" readonly style="background-color: #f0f0f0; width: 80px;">
+                    </td>
+                    <td>
+                        <input type="submit" value="Add">
+                    </td>
+                </tr>
+            </form>
+
+            <!-- Below Rows: Stored Parcels from MongoDB -->
+            <% if (parcels.length === 0) { %>
+                <tr>
+                    <td colspan="7">No parcel records in warehouse yet. Fill in the top row to add one!</td>
+                </tr>
+            <% } %>
+            <% parcels.forEach(item => { %>
+                <tr>
+                    <td><%= item.itemType %></td>
+                    <td><%= item.itemName %></td>
+                    <td><%= item.senderAddress %></td>
+                    <td><%= item.receiverAddress %></td>
+                    <td><%= item.weight %></td>
+                    <td>$<%= item.shippingFee %></td>
+                    <td>
+                        <a href="/edit?id=<%= item._id %>">Edit</a> | 
+                        <a href="/delete?id=<%= item._id %>" onclick="return confirm('Delete this item?')">Delete</a>
+                    </td>
+                </tr>
+            <% }) %>
+        </table>
+
+        <!-- Real-time frontend script to auto-fill shipping fee when weight is typed -->
+        <script>
+            function autoFillFee() {
+                const w = parseFloat(document.getElementById('weightInput').value);
+                const feeBox = document.getElementById('feeDisplay');
+                if (isNaN(w) || w <= 0) {
+                    feeBox.value = '$0';
+                    return;
+                }
+                // Same rule as backend: $15 for first 1kg + $5 per extra kg
+                const fee = (w <= 1) ? 15 : 15 + Math.ceil(w - 1) * 5;
+                feeBox.value = '$' + fee;
+            }
+        </script>
+    </body>
+</html>
